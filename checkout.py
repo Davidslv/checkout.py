@@ -1,4 +1,5 @@
 from bogof_rule import BogofRule
+from bulk_discount import BulkDiscount
 from item import Item
 
 class Checkout:
@@ -21,5 +22,8 @@ class Checkout:
 
         rule = BogofRule(self.basket)
         total -= rule.discount()
+
+        bulk_rule = BulkDiscount(self.basket)
+        total -= bulk_rule.discount()
 
         return total

@@ -15,4 +15,4 @@ class BogofRule:
         if (items < 2):
             return 0
 
-        return (items / 2) * t_item.price
+        return (items // 2) * t_item.price

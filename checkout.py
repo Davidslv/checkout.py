@@ -14,3 +14,6 @@ class Checkout:
         for product in self.products:
             if product.code == product_code:
                 self.basket.append(product)
+
+    def total(self):
+        return sum(item.price for item in self.basket)

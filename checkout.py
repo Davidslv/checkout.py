@@ -20,10 +20,7 @@ class Checkout:
     def total(self):
         total = sum(item.price for item in self.basket)
 
-        rule = BogofRule(self.basket)
-        total -= rule.discount()
-
-        bulk_rule = BulkDiscount(self.basket)
-        total -= bulk_rule.discount()
+        for rule in self.pricing_rules:
+            total -= rule.discount(self)
 
         return total

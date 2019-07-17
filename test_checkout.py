@@ -1,10 +1,12 @@
 import unittest
 from checkout import Checkout
+from bogof_rule import BogofRule
+from bulk_discount import BulkDiscount
 
 class TestCheckout(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        self.checkout = Checkout()
+        self.checkout = Checkout(pricing_rules=[BogofRule, BulkDiscount])
 
     def test_without_discount(self):
         self.checkout.scan('FR1')

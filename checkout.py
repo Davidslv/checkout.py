@@ -1,3 +1,4 @@
+from bogof_rule import BogofRule
 from item import Item
 
 class Checkout:
@@ -16,4 +17,9 @@ class Checkout:
                 self.basket.append(product)
 
     def total(self):
-        return sum(item.price for item in self.basket)
+        total = sum(item.price for item in self.basket)
+
+        rule = BogofRule(self.basket)
+        total -= rule.discount()
+
+        return total

@@ -1,16 +1,12 @@
 from bogof_rule import BogofRule
 from bulk_discount import BulkDiscount
-from item import Item
+from storage import Storage
 
 class Checkout:
     def __init__(self, pricing_rules=[]):
         self.pricing_rules = pricing_rules
         self.basket = []
-        self.products = [
-            Item(name='Fruit Tea', code='FR1', price=3.11),
-            Item(name='Strawberries', code='SR1', price=5.00),
-            Item(name='Coffee', code='CF1', price=11.23)
-        ]
+        self.products = Storage().products
 
     def scan(self, product_code):
         for product in self.products:
@@ -19,8 +15,6 @@ class Checkout:
 
     def total(self):
         total = sum(item.price for item in self.basket)
-
-        for rule in self.pricing_rules:
-            total -= rule.discount(self)
+        total -= sum(rule(self.basket).discount() for rule in self.pricing_rules)
 
         return total
